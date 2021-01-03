@@ -1,2 +1,2 @@
 run:
-	- java -jar *.jar
+    - java -jar *.jar
