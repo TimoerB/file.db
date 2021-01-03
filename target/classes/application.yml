@@ -1,0 +1,4 @@
+server:
+  port: 9393
+db:
+  path: file-db/data
