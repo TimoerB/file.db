@@ -1,12 +1,12 @@
 # FileDb
 
-FileDb is a simple database based on writing to files. It is lightweight and easy to set up and is a perfect fit for deer (https://deer.obss.be). The default port for FileDb is `9393` but can be changed in the configuration of course. 
+FileDb is a simple database based on writing to files. It is lightweight and easy to set up and is a perfect fit for deer (https://deercore.org). The default port for FileDb is `9393` but can be changed in the configuration of course. 
 
 A database object consists of only three basic fields: `id, modified, value`. Please read further to see how to access these objects/fields.
 
 ## Using deer
 
-It can be set up by installing deer (https://deer.obss.be):
+It can be set up by installing deer (https://deercore.org):
 
 ```
 wget -q "https://deer.obss.be/install.tar.gz" -O deer.tar.gz
