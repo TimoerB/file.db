@@ -9,13 +9,13 @@
 	</parent>
 	<groupId>com.obss</groupId>
 	<artifactId>file.db</artifactId>
-	<version>0.0.5</version>
+	<version>0.0.6-SNAPSHOT</version>
 	<name>file.db</name>
 	<description>Java File DB</description>
 
 	<scm>
 		<connection>scm:git:git@github.com:TimoerB/file.db.git</connection>
-	  <tag>file.db-0.0.5</tag>
+	  <tag>HEAD</tag>
   </scm>
 
 	<properties>
