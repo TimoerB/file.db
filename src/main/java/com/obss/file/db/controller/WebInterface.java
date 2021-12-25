@@ -13,8 +13,12 @@ import static org.springframework.http.ResponseEntity.ok;
 @CrossOrigin(origins = "*")
 public class WebInterface {
 
+    private final DbRepository dbRepository;
+
     @Inject
-    private DbRepository dbRepository;
+    public WebInterface(DbRepository dbRepository) {
+        this.dbRepository = dbRepository;
+    }
 
     @GetMapping(value = "/")
     public ResponseEntity getObjects() {
@@ -28,7 +32,7 @@ public class WebInterface {
 
     @GetMapping(value = "/value/{value}")
     public ResponseEntity searchObjectByValue(@PathVariable("value") String value) {
-        return ok(dbRepository.getObjectByValue(value));
+        return ok(dbRepository.getObjectsByValue(value));
     }
 
     @PostMapping(value = "/")

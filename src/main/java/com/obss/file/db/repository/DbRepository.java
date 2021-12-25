@@ -4,7 +4,7 @@ import com.obss.file.db.domain.DbObject;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.context.annotation.Configuration;
 
 import javax.inject.Named;
 import java.io.File;
@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Named
-@ConfigurationProperties("db")
+@Configuration
 @Slf4j
 public class DbRepository extends FileRepository<DbObject> {
 
@@ -43,11 +43,14 @@ public class DbRepository extends FileRepository<DbObject> {
         return null;
     }
 
-    public DbObject getObjectByValue(String value) {
+    public List<DbObject> getObjectsByValue(String value) {
+        List<DbObject> dbObjects = new ArrayList<>();
         for (DbObject dbObject : getObjects().values()) {
-            if (dbObject.getValue().toLowerCase().contains(value.toLowerCase())) return dbObject;
+            if (dbObject.getValue().toLowerCase().contains(value.toLowerCase())) {
+                dbObjects.add(dbObject);
+            }
         }
-        return null;
+        return dbObjects;
     }
 
     public void saveObject(DbObject dbObject) {
