@@ -18,7 +18,7 @@ public abstract class FileRepository<T> {
     private String DATA_FILE = "filedata";
     static final String DB_DELIMITER = ":::";
     private HashMap<Long, T> objects = new HashMap<>();
-    private static final long UPDATE_TIME = 15*1000;
+    private static final long UPDATE_TIME = 15 * 1000;
     private long lastUpdated = new Date().getTime();
 
     public FileRepository() {
@@ -30,7 +30,7 @@ public abstract class FileRepository<T> {
         load(true);
     }
 
-    public HashMap<Long, T> getObjects() {
+    HashMap<Long, T> getObjects() {
         return objects;
     }
 
@@ -38,12 +38,12 @@ public abstract class FileRepository<T> {
         this.objects = objects;
     }
 
-    public boolean save() {
+    boolean save() {
         try {
             FileWriter myWriter = new FileWriter(DATA_FILE);
             objects.forEach((id, o) -> {
                 try {
-                    myWriter.write(objectToString(o)+"\n");
+                    myWriter.write(objectToString(o) + "\n");
                 } catch (IOException e) {
                     log.error("An error occurred when writing to prop file: " + e.getMessage());
                 }
@@ -51,9 +51,9 @@ public abstract class FileRepository<T> {
             if (objects.size() == 0)
                 myWriter.write("");
             myWriter.close();
-            log.info("Saved "+objects.size()+" objects to "+DATA_FILE);
+            log.info("Saved " + objects.size() + " objects to " + DATA_FILE);
         } catch (IOException e) {
-            log.error("An error occurred when opening data file "+DATA_FILE+": "+e.getMessage());
+            log.error("An error occurred when opening data file " + DATA_FILE + ": " + e.getMessage());
             return false;
         }
         return true;
@@ -65,7 +65,7 @@ public abstract class FileRepository<T> {
         load(false);
     }
 
-    public void load(boolean force) {
+    private void load(boolean force) {
         if (!force) {
             long nowTime = new Date().getTime();
             if (nowTime - lastUpdated < UPDATE_TIME) return;
@@ -85,7 +85,7 @@ public abstract class FileRepository<T> {
             }
             myReader.close();
         } catch (FileNotFoundException e) {
-            log.error("An error occurred when reading data file: "+e.getMessage());
+            log.error("An error occurred when reading data file: " + e.getMessage());
         }
     }
 

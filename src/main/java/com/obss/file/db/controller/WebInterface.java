@@ -6,7 +6,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.inject.Inject;
-import java.util.List;
+
+import static org.springframework.http.ResponseEntity.ok;
 
 @RestController
 @CrossOrigin(origins = "*")
@@ -16,25 +17,30 @@ public class WebInterface {
     private DbRepository dbRepository;
 
     @GetMapping(value = "/")
-    public List<DbObject> getObjects() {
-        return dbRepository.getDbObjects();
+    public ResponseEntity getObjects() {
+        return ok(dbRepository.getDbObjects());
     }
 
     @GetMapping(value = "/id/{id}")
-    public DbObject getObject(@PathVariable("id") String id) {
-        return dbRepository.getObjectById(id);
+    public ResponseEntity getObject(@PathVariable("id") String id) {
+        return ok(dbRepository.getObjectById(id));
+    }
+
+    @GetMapping(value = "/value/{value}")
+    public ResponseEntity searchObjectByValue(@PathVariable("value") String value) {
+        return ok(dbRepository.getObjectByValue(value));
     }
 
     @PostMapping(value = "/")
     public ResponseEntity addObject(@RequestBody DbObject dbObject) {
         dbRepository.saveObject(dbObject);
-        return ResponseEntity.ok().build();
+        return ok().build();
     }
 
     @DeleteMapping(value = "/id/{id}")
     public ResponseEntity deleteObject(@PathVariable("id") String id) {
         dbRepository.deleteObject(dbRepository.getObjectById(id));
-        return ResponseEntity.ok().build();
+        return ok().build();
     }
 
     @PutMapping(value = "/id/{id}")
@@ -43,6 +49,6 @@ public class WebInterface {
         if (!id.equals(dbObject.getId())) return ResponseEntity.badRequest().build();
 
         dbRepository.saveObject(dbObject);
-        return ResponseEntity.ok().build();
+        return ok().build();
     }
 }

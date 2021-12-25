@@ -1,6 +1,7 @@
 package com.obss.file.db.repository;
 
 import com.obss.file.db.domain.DbObject;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.context.properties.ConfigurationProperties;
@@ -12,6 +13,7 @@ import java.util.List;
 
 @Named
 @ConfigurationProperties("db")
+@Slf4j
 public class DbRepository extends FileRepository<DbObject> {
 
     @Autowired
@@ -22,10 +24,10 @@ public class DbRepository extends FileRepository<DbObject> {
     private static String cleanPath(String s) {
         if (s == null) return "data";
         if (s.substring(0, 1).equals("/")) s = s.substring(1);
-        if (s.substring(s.length()-1).equals("/")) s = s.substring(0, s.length()-1);
-        File f = new File("../"+s);
+        if (s.substring(s.length() - 1).equals("/")) s = s.substring(0, s.length() - 1);
+        File f = new File("../" + s);
         if (!f.exists()) f.mkdirs();
-        return "../"+s;
+        return "../" + s;
     }
 
     public List<DbObject> getDbObjects() {
@@ -41,8 +43,15 @@ public class DbRepository extends FileRepository<DbObject> {
         return null;
     }
 
+    public DbObject getObjectByValue(String value) {
+        for (DbObject dbObject : getObjects().values()) {
+            if (dbObject.getValue().toLowerCase().contains(value.toLowerCase())) return dbObject;
+        }
+        return null;
+    }
+
     public void saveObject(DbObject dbObject) {
-        System.out.println("saving object " + generateId(dbObject) + " - " + dbObject.getId() + ", " + dbObject.getModified() + ", " + dbObject.getValue());
+        log.info("Saving object " + generateId(dbObject) + " - " + dbObject.getId() + ", " + dbObject.getModified() + ", " + dbObject.getValue());
         this.getObjects().put(generateId(dbObject), dbObject);
         save();
     }
