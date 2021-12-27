@@ -1,105 +1,117 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
-	<modelVersion>4.0.0</modelVersion>
-	<parent>
-		<groupId>org.springframework.boot</groupId>
-		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>2.4.1</version>
-		<relativePath /> <!-- lookup parent from repository -->
-	</parent>
-	<groupId>com.obss</groupId>
-	<artifactId>file.db</artifactId>
-	<version>0.0.7-SNAPSHOT</version>
-	<name>file.db</name>
-	<description>Java File DB</description>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>2.4.1</version>
+        <relativePath/> <!-- lookup parent from repository -->
+    </parent>
+    <groupId>com.obss</groupId>
+    <artifactId>file.db</artifactId>
+    <version>0.0.7-SNAPSHOT</version>
+    <name>file.db</name>
+    <description>Java File DB</description>
 
-	<scm>
-		<connection>scm:git:git@github.com:TimoerB/file.db.git</connection>
-	  <tag>HEAD</tag>
-  </scm>
+    <scm>
+        <connection>scm:git:git@github.com:TimoerB/file.db.git</connection>
+        <tag>HEAD</tag>
+    </scm>
 
-	<properties>
-		<java.version>11</java.version>
-	</properties>
+    <distributionManagement>
+        <repository>
+            <uniqueVersion>false</uniqueVersion>
+            <id>corp1</id>
+            <name>Corporate Repository</name>
+            <url>scp://repo/maven2</url>
+            <layout>default</layout>
+        </repository>
+    </distributionManagement>
 
-	<dependencies>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-web</artifactId>
-		</dependency>
+    <properties>
+        <java.version>11</java.version>
+        <maven.javadoc.skip>true</maven.javadoc.skip>
+    </properties>
 
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-test</artifactId>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>io.rest-assured</groupId>
-			<artifactId>rest-assured</artifactId>
-			<version>3.3.0</version>
-			<scope>test</scope>
-		</dependency>
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
 
-		<dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>io.rest-assured</groupId>
+            <artifactId>rest-assured</artifactId>
+            <version>3.3.0</version>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
             <groupId>org.glassfish.hk2.external</groupId>
             <artifactId>javax.inject</artifactId>
             <version>2.5.0-b32</version>
         </dependency>
-		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-web</artifactId>
-			<version>5.3.1</version>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.restdocs</groupId>
-			<artifactId>spring-restdocs-restassured</artifactId>
-			<version>2.0.5.RELEASE</version>
-		</dependency>
-		<dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-web</artifactId>
+            <version>5.3.1</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.restdocs</groupId>
+            <artifactId>spring-restdocs-restassured</artifactId>
+            <version>2.0.5.RELEASE</version>
+        </dependency>
+        <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
         </dependency>
-		<dependency>
-			<groupId>junit</groupId>
-			<artifactId>junit</artifactId>
-			<version>4.13.2</version>
-			<scope>test</scope>
-		</dependency>
-	</dependencies>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.13.2</version>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
 
-	<build>
-		<plugins>
-			<plugin>
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-maven-plugin</artifactId>
-			</plugin>
-			<plugin>
-				<groupId>org.asciidoctor</groupId>
-				<artifactId>asciidoctor-maven-plugin</artifactId>
-				<version>2.2.1</version>
-				<executions>
-					<execution>
-						<id>convert-to-html</id>
-						<phase>prepare-package</phase>
-						<goals>
-							<goal>process-asciidoc</goal>
-						</goals>
-						<configuration>
-							<backend>html</backend>
-							<doctype>book</doctype>
-							<attributes>
-								<snippets>${project.build.directory}/generated-snippets</snippets>
-							</attributes>
-							<sourceDirectory>${project.basedir}/src/main/asciidoc</sourceDirectory>
-						</configuration>
-					</execution>
-				</executions>
-			</plugin>
-		</plugins>
-	</build>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>org.asciidoctor</groupId>
+                <artifactId>asciidoctor-maven-plugin</artifactId>
+                <version>2.2.1</version>
+                <executions>
+                    <execution>
+                        <id>convert-to-html</id>
+                        <phase>prepare-package</phase>
+                        <goals>
+                            <goal>process-asciidoc</goal>
+                        </goals>
+                        <configuration>
+                            <backend>html</backend>
+                            <doctype>book</doctype>
+                            <attributes>
+                                <snippets>${project.build.directory}/generated-snippets</snippets>
+                            </attributes>
+                            <sourceDirectory>${project.basedir}/src/main/asciidoc</sourceDirectory>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
 
 </project>
