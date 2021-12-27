@@ -9,6 +9,7 @@ import org.springframework.context.annotation.Configuration;
 import javax.inject.Named;
 import java.io.File;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 @Named
@@ -43,13 +44,13 @@ public class DbRepository extends FileRepository<DbObject> {
         return null;
     }
 
-    public List<DbObject> getObjectsByValue(String value) {
+    public List<DbObject> getObjectsByValue(String value, Long from, Long to) {
         List<DbObject> dbObjects = new ArrayList<>();
-        for (DbObject dbObject : getObjects().values()) {
-            if (dbObject.getValue().toLowerCase().contains(value.toLowerCase())) {
-                dbObjects.add(dbObject);
-            }
-        }
+        getObjects().values()
+                .stream()
+                .filter(dbObject -> (from == null || dbObject.getModified() >= from) && (to == null || dbObject.getModified() <= to))
+                .filter(dbObject -> dbObject.getValue().toLowerCase().contains(value.toLowerCase()))
+                .forEach(dbObjects::add);
         return dbObjects;
     }
 
@@ -61,6 +62,11 @@ public class DbRepository extends FileRepository<DbObject> {
 
     public void deleteObject(DbObject dbObject) {
         this.getObjects().remove(generateId(dbObject));
+        save();
+    }
+
+    public void deleteAllObjects() {
+        this.setObjects(new HashMap<>());
         save();
     }
 
@@ -76,6 +82,6 @@ public class DbRepository extends FileRepository<DbObject> {
 
     @Override
     DbObject createObjectInstance(String[] values) {
-        return new DbObject(values[0], values[1], values[2]);
+        return new DbObject(values[0], Long.parseLong(values[1]), values[2]);
     }
 }

@@ -1,0 +1,124 @@
+= FileDb REST API documentation
+:doctype: book
+:icons: font
+:toc: left
+:toclevels: 4
+:sectlinks:
+:source-highlighter: highlightjs
+
+== DB Objects
+
+Overview of database objects.
+
+=== Get all DB objects
+
+Returns all the database objects in chronological order.
+
+==== Request
+
+include::{snippets}/getall/http-request.adoc[]
+
+==== Response
+
+include::{snippets}/getall/http-response.adoc[]
+
+===== Response Fields
+
+include::{snippets}/getall/response-fields.adoc[]
+
+=== Get all DB objects by id
+
+Issue the following call to get a database object by id.
+
+==== Request
+
+include::{snippets}/getbyid/http-request.adoc[]
+
+==== Path Parameters
+
+include::{snippets}/getbyid/path-parameters.adoc[]
+
+==== Response
+
+include::{snippets}/getbyid/http-response.adoc[]
+
+===== Response Fields
+
+include::{snippets}/getbyid/response-fields.adoc[]
+
+=== Add a DB object
+
+Adding a new db object can be done by performing a POST request:
+
+==== Request
+
+include::{snippets}/post/http-request.adoc[]
+
+==== Request Fields
+
+include::{snippets}/post/request-fields.adoc[]
+
+==== Response
+
+include::{snippets}/post/http-response.adoc[]
+
+=== Update a DB object
+
+Updating an existing db object can be done by performing a PUT request:
+
+==== Request
+
+include::{snippets}/put/http-request.adoc[]
+
+==== Path Parameters
+
+include::{snippets}/put/path-parameters.adoc[]
+
+==== Request Fields
+
+include::{snippets}/put/request-fields.adoc[]
+
+==== Response
+
+include::{snippets}/put/http-response.adoc[]
+
+
+=== Delete a DB object by id
+
+Delete a db object:
+
+==== Request
+
+include::{snippets}/del/http-request.adoc[]
+
+==== Path Parameters
+
+include::{snippets}/del/path-parameters.adoc[]
+
+==== Response
+
+include::{snippets}/del/http-response.adoc[]
+
+=== Get all DB objects by value
+
+To search db objects by value and within a specific time ranger, the following request can be issued.
+
+==== Request
+
+include::{snippets}/getbyval/http-request.adoc[]
+
+==== Path Parameters
+
+include::{snippets}/getbyval/path-parameters.adoc[]
+
+==== Request Parameters
+
+include::{snippets}/getbyval/request-parameters.adoc[]
+
+==== Response
+
+include::{snippets}/getbyval/http-response.adoc[]
+
+===== Response Fields
+
+include::{snippets}/getbyval/response-fields.adoc[]

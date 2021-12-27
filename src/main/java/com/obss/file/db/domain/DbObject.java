@@ -1,18 +1,18 @@
 package com.obss.file.db.domain;
 
-import java.util.Date;
+import java.time.Instant;
 
 public class DbObject {
 
     private String id;
-    private String modified;
+    private Long modified;
     private String value;
 
     public DbObject() {}
 
-    public DbObject(String id, String modified, String value) {
+    public DbObject(String id, Long modified, String value) {
         this.id = id;
-        this.modified = modified == null ? new Date().toGMTString() : modified;
+        this.modified = modified == null ? Instant.now().toEpochMilli() : modified;
         this.value = value;
     }
 
@@ -24,11 +24,11 @@ public class DbObject {
         this.id = id;
     }
 
-    public String getModified() {
+    public Long getModified() {
         return modified;
     }
 
-    public void setModified(String modified) {
+    public void setModified(Long modified) {
         this.modified = modified;
     }
 
